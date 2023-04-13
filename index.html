@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./pages/index.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mesto</title>
+  </head>
+  <body>
+    <div class="page">
+      <header class="header">
+        <img
+          src="./images/header__logo.svg"
+          alt="Логотип"
+          class="header__logo"
+        />
+      </header>
+      <main class="content">
+        <section class="profile">
+          <div class="profile__avatar"></div>
+          <div class="profile__info">
+            <h2 class="profile__name">Жак-Ив Кусто</h2>
+            <button class="profile__edit-button">
+              <img src="./images/edit-button.svg" alt="Кнопка редактирования" />
+            </button>
+            <p class="profile__job">Исследователь океана</p>
+          </div>
+
+          <button class="profile__add-button">
+            <img src="./images/profile_cross.svg" alt="Кнопка закрытия" />
+          </button>
+        </section>
+        <section class="elements">
+          <div class="elements__element">
+            <img
+              src="./images/kirill-pershin-1088404-unsplash(1).jpg"
+              alt=""
+              class="elements__picture"
+            />
+            <div class="elements__info">
+              <h2 class="elements__name">Карачаевск</h2>
+              <button class="elements__heart"></button>
+            </div>
+          </div>
+
+          <div class="elements__element">
+            <img
+              src="./images/kirill-pershin-1404681-unsplash(1)(1).png"
+              alt=""
+              class="elements__picture"
+            />
+            <div class="elements__info">
+              <h2 class="elements__name">Гора Эльбрус</h2>
+              <button class="elements__heart"></button>
+            </div>
+          </div>
+
+          <div class="elements__element">
+            <img
+              src="./images/kirill-pershin-1556355-unsplash(1).png"
+              alt=""
+              class="elements__picture"
+            />
+            <div class="elements__info">
+              <h2 class="elements__name">Домбай</h2>
+              <button class="elements__heart"></button>
+            </div>
+          </div>
+
+          <div class="elements__element">
+            <img
+              src="./images/kirill-pershin-1404681-unsplash(1)(1).png"
+              alt=""
+              class="elements__picture"
+            />
+            <div class="elements__info">
+              <h2 class="elements__name">Гора Эльбрус</h2>
+              <button class="elements__heart"></button>
+            </div>
+          </div>
+
+          <div class="elements__element">
+            <img
+              src="./images/kirill-pershin-1556355-unsplash(1).png"
+              alt=""
+              class="elements__picture"
+            />
+            <div class="elements__info">
+              <h2 class="elements__name">Домбай</h2>
+              <button class="elements__heart"></button>
+            </div>
+          </div>
+
+          <div class="elements__element">
+            <img
+              src="./images/kirill-pershin-1088404-unsplash(1).jpg"
+              alt=""
+              class="elements__picture"
+            />
+            <div class="elements__info">
+              <h2 class="elements__name">Карачаево-Черкессия</h2>
+              <button class="elements__heart"></button>
+            </div>
+          </div>
+        </section>
+        <section class="popup">
+          <form class="popup__container">
+            <h3 class="popup__edit">Редактировать профиль</h3>
+            <input type="text" class="popup__input-name" />
+            <input type="text" class="popup__input-job" />
+            <button type="submit" class="popup__button">Сохранить</button>
+            <button class="popup__close-icon"></button>
+          </form>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p class="footer__element">&commat; 2023 Mesto Russia</p>
+      </footer>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>

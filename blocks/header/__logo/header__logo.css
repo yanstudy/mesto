@@ -1,0 +1,13 @@
+.header__logo {
+  max-width: 142px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 597px) {
+  .header__logo {
+    margin-left: 27px;
+  }
+}

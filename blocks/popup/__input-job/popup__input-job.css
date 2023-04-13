@@ -1,0 +1,11 @@
+.popup__input-job {
+  margin-top: 30px;
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: 13px;
+  border-radius: 2px;
+}
+
+.popup__input-job:focus {
+  outline: 3px solid rgb(22, 131, 255);
+}
