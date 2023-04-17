@@ -4,13 +4,13 @@
   margin-top: 37px;
   margin-left: 18px;
   background-color: black;
-  padding: 7px;
+  background-image: url("../../../images/edit-button.svg");
+  background-repeat: no-repeat;
+  background-size: 10px;
+  background-position: center;
   border: 1px solid #ffffff;
   opacity: 1;
   transition: opacity 0.3s ease-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .profile__edit-button:hover {
