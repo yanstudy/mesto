@@ -1,17 +1,22 @@
-.popup__input-name {
+.popup__input {
   margin-top: 54px;
   border: 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  padding-bottom: 13px;
+  padding: 0 0 10px 0;
   border-radius: 2px;
+  height: 27px;
+}
+
+.popup__input:last-of-type {
+  margin-top: 30px;
 }
 
 @media (max-width: 600px) {
-  .popup__input-name {
+  .popup__input {
     margin-top: 75px;
   }
 }
 
-.popup__input-name:focus {
+.popup__input:focus {
   outline: 3px solid rgb(22, 131, 255);
 }

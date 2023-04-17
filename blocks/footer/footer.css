@@ -4,6 +4,12 @@
   padding-bottom: 60px;
 }
 
+@media (max-width: 896px) {
+  .footer {
+    max-width: 581px;
+  }
+}
+
 @media (max-width: 600px) {
   .footer {
     max-width: 282px;
