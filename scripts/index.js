@@ -6,6 +6,7 @@ let job = document.querySelector(".profile__job");
 let formElement = document.querySelector(".popup__container");
 let nameInput = document.querySelector("#nameInput");
 let jobInput = document.querySelector("#jobInput");
+let hearts = document.querySelectorAll(".elements__heart");
 
 function showPopup() {
   nameInput.value = name.textContent;
@@ -22,6 +23,13 @@ function handleFormSubmit(evt) {
   closePopup();
 }
 
+function toggleLike(evt) {
+  evt.currentTarget.classList.toggle("elements__heart_liked");
+}
+
 editButton.addEventListener("click", showPopup);
 closeButton.addEventListener("click", closePopup);
 formElement.addEventListener("submit", handleFormSubmit);
+hearts.forEach((heart) => {
+  heart.addEventListener("click", toggleLike);
+});
