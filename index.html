@@ -34,104 +34,9 @@
             aria-label="Кнопка добавления фотографии"
           ></button>
         </section>
-        <section class="elements">
-          <div class="elements__element">
-            <img
-              src="./images/kirill-pershin-1088404-unsplash(1).jpg"
-              alt="Карачаевск"
-              class="elements__picture"
-            />
-            <div class="elements__info">
-              <h2 class="elements__name">Карачаевск</h2>
-              <button
-                class="elements__heart"
-                type="button"
-                aria-label="Лайк"
-              ></button>
-            </div>
-          </div>
+        <section class="elements"></section>
 
-          <div class="elements__element">
-            <img
-              src="./images/kirill-pershin-1404681-unsplash(1)(1).png"
-              alt="Гора Эльбрус"
-              class="elements__picture"
-            />
-            <div class="elements__info">
-              <h2 class="elements__name">Гора Эльбрус</h2>
-              <button
-                class="elements__heart"
-                type="button"
-                aria-label="Лайк"
-              ></button>
-            </div>
-          </div>
-
-          <div class="elements__element">
-            <img
-              src="./images/kirill-pershin-1556355-unsplash(1).png"
-              alt="Домбай"
-              class="elements__picture"
-            />
-            <div class="elements__info">
-              <h2 class="elements__name">Домбай</h2>
-              <button
-                class="elements__heart"
-                type="button"
-                aria-label="Лайк"
-              ></button>
-            </div>
-          </div>
-
-          <div class="elements__element">
-            <img
-              src="./images/kirill-pershin-1404681-unsplash(1)(1).png"
-              alt="Гора Эльбрус"
-              class="elements__picture"
-            />
-            <div class="elements__info">
-              <h2 class="elements__name">Гора Эльбрус</h2>
-              <button
-                class="elements__heart"
-                type="button"
-                aria-label="Лайк"
-              ></button>
-            </div>
-          </div>
-
-          <div class="elements__element">
-            <img
-              src="./images/kirill-pershin-1556355-unsplash(1).png"
-              alt="Домбай"
-              class="elements__picture"
-            />
-            <div class="elements__info">
-              <h2 class="elements__name">Домбай</h2>
-              <button
-                class="elements__heart"
-                type="button"
-                aria-label="Лайк"
-              ></button>
-            </div>
-          </div>
-
-          <div class="elements__element">
-            <img
-              src="./images/kirill-pershin-1088404-unsplash(1).jpg"
-              alt="Карачаево-Черкессия"
-              class="elements__picture"
-            />
-            <div class="elements__info">
-              <h2 class="elements__name">Карачаево-Черкессия</h2>
-              <button
-                class="elements__heart"
-                type="button"
-                aria-label="Лайк"
-              ></button>
-            </div>
-          </div>
-        </section>
-        <section class="popup">
+        <section class="popup" id="editPopup">
           <div class="popup__container">
             <button
               class="popup__close-icon"
@@ -156,7 +61,41 @@
                 placeholder="Чем вы занимаетесь?"
                 required
               />
-              <button type="submit" class="popup__button">Сохранить</button>
+              <button type="submit" class="popup__button popup__button_edit">
+                Сохранить
+              </button>
+            </form>
+          </div>
+        </section>
+
+        <section class="popup" id="newPlacePopup">
+          <div class="popup__container popup__container_add">
+            <button
+              class="popup__close-icon popup__close-icon_add"
+              type="button"
+              aria-label="Кнопка закрытия попапа"
+            ></button>
+            <form class="popup__form" name="dataform">
+              <h3 class="popup__edit">Новое место</h3>
+              <input
+                type="text"
+                class="popup__input"
+                id="nameInput"
+                name="nameInput"
+                placeholder="Название"
+                required
+              />
+              <input
+                type="text"
+                class="popup__input"
+                id="jobInput"
+                name="jobInput"
+                placeholder="Ссылка на картинку"
+                required
+              />
+              <button type="submit" class="popup__button popup__button_add">
+                Сохранить
+              </button>
             </form>
           </div>
         </section>
@@ -166,6 +105,20 @@
         <p class="footer__element">&commat; 2023 Mesto Russia</p>
       </footer>
     </div>
+    <template id="elements__element-template">
+      <div class="elements__element">
+        <img class="elements__delete-button" src="./images/trash.svg"></img>
+        <img class="elements__picture" />
+        <div class="elements__info">
+          <h2 class="elements__name"></h2>
+          <button
+            class="elements__heart"
+            type="button"
+            aria-label="Лайк"
+          ></button>
+        </div>
+      </div>
+    </template>
     <script src="scripts/index.js"></script>
   </body>
 </html>
