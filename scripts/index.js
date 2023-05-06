@@ -1,17 +1,17 @@
-let editPopup = document.querySelector("#editPopup");
-let editButton = document.querySelector(".profile__edit-button");
-let closeButton = document.querySelector(".popup__close-icon");
-let name = document.querySelector(".profile__name");
-let job = document.querySelector(".profile__job");
-let formElement = document.querySelector(".popup__container");
-let nameInput = document.querySelector("#nameInput");
-let jobInput = document.querySelector("#jobInput");
-let cardsContainer = document.querySelector(".elements");
-let newPlacePopup = document.querySelector("#newPlacePopup");
-let addButton = document.querySelector(".profile__add-button");
-let closeButtonForAddPopup = document.querySelector(".popup__close-icon_add");
-let addNewCardButton = document.querySelector(".popup__container_add");
-let imagePopup = document.querySelector("#imagePopup");
+const editPopup = document.querySelector("#editPopup");
+const editButton = document.querySelector(".profile__edit-button");
+const closeButton = document.querySelector(".popup__close-icon");
+const name = document.querySelector(".profile__name");
+const job = document.querySelector(".profile__job");
+const formElement = document.querySelector(".popup__container");
+const nameInput = document.querySelector("#nameInput");
+const jobInput = document.querySelector("#jobInput");
+const cardsContainer = document.querySelector(".elements");
+const newPlacePopup = document.querySelector("#newPlacePopup");
+const addButton = document.querySelector(".profile__add-button");
+const closeButtonForAddPopup = document.querySelector(".popup__close-icon_add");
+const addNewCardButton = document.querySelector(".popup__container_add");
+const imagePopup = document.querySelector("#imagePopup");
 const cardTemplate = document.querySelector("#elements__element-template");
 const closeButtonForPicture = document.querySelector(".popup__close-icon_pict");
 
@@ -86,6 +86,16 @@ const renderCard = (card) => {
 
 cardsContainer.prepend(...cardList);
 
+// добавление новой карточки по кнопке
+function addNewCard(evt) {
+  evt.preventDefault();
+  const currentName = evt.currentTarget.querySelector("#nameInput");
+  const currentLink = evt.currentTarget.querySelector("#jobInput");
+  const card = { name: currentName.value, link: currentLink.value };
+  renderCard(card);
+  closeAddPopup();
+}
+// попапы
 function showPopup(evt) {
   nameInput.value = name.textContent;
   jobInput.value = job.textContent;
@@ -113,16 +123,7 @@ function closePictPopup() {
   imagePopup.classList.remove("popup_opened");
 }
 
-// добавление новой карточки по кнопке
-function addNewCard(evt) {
-  evt.preventDefault();
-  const currentName = evt.currentTarget.querySelector("#nameInput");
-  const currentLink = evt.currentTarget.querySelector("#jobInput");
-  const card = { name: currentName.value, link: currentLink.value };
-  renderCard(card);
-  closeAddPopup();
-}
-
+// обработчики событий
 editButton.addEventListener("click", showPopup);
 closeButton.addEventListener("click", closePopup);
 formElement.addEventListener("submit", handleFormSubmit);
