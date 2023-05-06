@@ -5,7 +5,9 @@ const name = document.querySelector(".profile__name");
 const job = document.querySelector(".profile__job");
 const formElement = document.querySelector(".popup__container");
 const nameInput = document.querySelector("#nameInput");
+const nameOfPlaceInput = document.querySelector("#nameOfPlaceInput");
 const jobInput = document.querySelector("#jobInput");
+const placeInput = document.querySelector("#placeInput");
 const cardsContainer = document.querySelector(".elements");
 const newPlacePopup = document.querySelector("#newPlacePopup");
 const addButton = document.querySelector(".profile__add-button");
@@ -89,8 +91,8 @@ cardsContainer.prepend(...cardList);
 // добавление новой карточки по кнопке
 function addNewCard(evt) {
   evt.preventDefault();
-  const currentName = evt.currentTarget.querySelector("#nameInput");
-  const currentLink = evt.currentTarget.querySelector("#jobInput");
+  const currentName = evt.currentTarget.querySelector("#nameOfPlaceInput");
+  const currentLink = evt.currentTarget.querySelector("#placeInput");
   const card = { name: currentName.value, link: currentLink.value };
   renderCard(card);
   closeAddPopup();
