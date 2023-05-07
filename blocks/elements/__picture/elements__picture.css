@@ -3,5 +3,5 @@
   aspect-ratio: 1 / 1;
   border: 0;
   display: block;
-  object-fit: fill;
+  object-fit: cover;
 }
