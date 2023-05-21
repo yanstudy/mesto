@@ -80,8 +80,8 @@ function addNewCard(evt) {
 }
 // попапы
 const closePopupEsc = (evt) => {
-  evt.preventDefault();
   if (evt.key === "Escape") {
+    evt.preventDefault();
     const activePopup = document.querySelector(".popup_opened");
     closePopup(activePopup);
   }
