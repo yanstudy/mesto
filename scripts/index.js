@@ -21,6 +21,7 @@ const bigImage = popupBigImage.querySelector(".popup__image");
 const popupTitle = popupBigImage.querySelector(".popup__title");
 const nameOfPictureToAdd = document.querySelector("#nameOfPlaceInput");
 const linkOfPictureToAdd = document.querySelector("#placeInput");
+const popups = document.querySelectorAll(".popup");
 
 // Функция создания карточки
 const createCard = (card) => {
@@ -78,12 +79,31 @@ function addNewCard(evt) {
   linkOfPictureToAdd.value = "";
 }
 // попапы
+const closePopupEsc = (evt) => {
+  evt.preventDefault();
+  if (evt.key === "Escape") {
+    const activePopup = document.querySelector(".popup_opened");
+    closePopup(activePopup);
+  }
+};
+
+const closePopupOverlay = (evt) => {
+  if (evt.currentTarget === evt.target) {
+    const activePopup = document.querySelector(".popup_opened");
+    closePopup(activePopup);
+  }
+};
+
 function openPopup(popup) {
   popup.classList.add("popup_opened");
+  document.addEventListener("keydown", closePopupEsc);
+  popup.addEventListener("click", closePopupOverlay);
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closePopupEsc);
+  popup.removeEventListener("click", closePopupOverlay);
 }
 
 function showPopupProfile(evt) {
