@@ -43,6 +43,17 @@ const toggleButtonState = (buttonElement, isActive, config) => {
     enableButton(buttonElement, config);
   }
 };
+
+function resetError(formElement, config) {
+  const inputList = Array.from(
+    formElement.querySelectorAll(config.inputSelector)
+  );
+  inputList.forEach((inputElement) =>
+    hideInputError(formElement, inputElement, config)
+  );
+  toggleButtonState(formElement, inputList, config);
+}
+
 const setEventListeners = (formElement, config) => {
   const inputList = Array.from(
     formElement.querySelectorAll(config.inputSelector)

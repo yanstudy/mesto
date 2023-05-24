@@ -1,10 +1,11 @@
 const popupEditProfile = document.querySelector("#editPopup");
 const buttonEditProfile = document.querySelector(".profile__edit-button");
-const closeButtonForEditProfilePopup =
-  document.querySelector(".popup__close-icon");
+const closeButtonForEditProfilePopup = document.querySelector(
+  ".popup__close-icon_edit"
+);
 const name = document.querySelector(".profile__name");
 const job = document.querySelector(".profile__job");
-const buttonTosaveProfile = document.querySelector(".popup__container");
+const submitEditingProfile = document.querySelector("#formEditProfile");
 const nameInput = document.querySelector("#nameInput");
 const nameOfPlaceInput = document.querySelector("#nameOfPlaceInput");
 const jobInput = document.querySelector("#jobInput");
@@ -13,7 +14,7 @@ const cardsContainer = document.querySelector(".elements");
 const popupNewPlace = document.querySelector("#newPlacePopup");
 const buttonAddPicture = document.querySelector(".profile__add-button");
 const closeButtonForAddPopup = document.querySelector(".popup__close-icon_add");
-const buttonForSaveNewCard = document.querySelector(".popup__container_add");
+const submitToSaveNewCard = document.querySelector("#formNewPlace");
 const popupBigImage = document.querySelector("#imagePopup");
 const cardTemplate = document.querySelector("#elements__element-template");
 const closeButtonForPicture = document.querySelector(".popup__close-icon_pict");
@@ -75,8 +76,7 @@ function addNewCard(evt) {
   };
   renderCard(card);
   closePopup(popupNewPlace);
-  nameOfPictureToAdd.value = "";
-  linkOfPictureToAdd.value = "";
+  submitToSaveNewCard.reset();
 }
 // попапы
 const closePopupEsc = (evt) => {
@@ -96,6 +96,16 @@ const closePopupOverlay = (evt) => {
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
+  const currentPopup = document.querySelector(".popup_opened");
+  const currentFormElement = currentPopup.querySelector(".popup__form");
+  const currentSubmitButton = currentPopup.querySelector(".popup__button");
+
+  if (currentFormElement) {
+    currentFormElement.reset();
+    resetError(currentFormElement, configFormSelector);
+    disableButton(currentSubmitButton, configFormSelector);
+  }
+
   document.addEventListener("keydown", closePopupEsc);
   popup.addEventListener("click", closePopupOverlay);
 }
@@ -103,13 +113,13 @@ function openPopup(popup) {
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
   document.removeEventListener("keydown", closePopupEsc);
-  popup.removeEventListener("click", closePopupOverlay);
+  popup.removeEventListener("mousedown", closePopupOverlay);
 }
 
 function showPopupProfile(evt) {
+  openPopup(popupEditProfile);
   nameInput.value = name.textContent;
   jobInput.value = job.textContent;
-  openPopup(popupEditProfile);
 }
 
 function handleFormSubmitProfile(evt) {
@@ -124,12 +134,12 @@ buttonEditProfile.addEventListener("click", showPopupProfile);
 closeButtonForEditProfilePopup.addEventListener("click", () =>
   closePopup(popupEditProfile)
 );
-buttonTosaveProfile.addEventListener("submit", handleFormSubmitProfile);
+submitEditingProfile.addEventListener("submit", handleFormSubmitProfile);
 buttonAddPicture.addEventListener("click", () => openPopup(popupNewPlace));
 closeButtonForAddPopup.addEventListener("click", () =>
   closePopup(popupNewPlace)
 );
-buttonForSaveNewCard.addEventListener("submit", addNewCard);
+submitToSaveNewCard.addEventListener("submit", addNewCard);
 closeButtonForPicture.addEventListener("click", () =>
   closePopup(popupBigImage)
 );
