@@ -5,7 +5,7 @@ const closeButtonForEditProfilePopup = document.querySelector(
 );
 const name = document.querySelector(".profile__name");
 const job = document.querySelector(".profile__job");
-const submitEditingProfile = document.querySelector("#formEditProfile");
+const formElementProfile = document.querySelector("#formEditProfile");
 const nameInput = document.querySelector("#nameInput");
 const nameOfPlaceInput = document.querySelector("#nameOfPlaceInput");
 const jobInput = document.querySelector("#jobInput");
@@ -14,7 +14,7 @@ const cardsContainer = document.querySelector(".elements");
 const popupNewPlace = document.querySelector("#newPlacePopup");
 const buttonAddPicture = document.querySelector(".profile__add-button");
 const closeButtonForAddPopup = document.querySelector(".popup__close-icon_add");
-const submitToSaveNewCard = document.querySelector("#formNewPlace");
+const formElementNewCard = document.querySelector("#formNewPlace");
 const popupBigImage = document.querySelector("#imagePopup");
 const cardTemplate = document.querySelector("#elements__element-template");
 const closeButtonForPicture = document.querySelector(".popup__close-icon_pict");
@@ -22,7 +22,7 @@ const bigImage = popupBigImage.querySelector(".popup__image");
 const popupTitle = popupBigImage.querySelector(".popup__title");
 const nameOfPictureToAdd = document.querySelector("#nameOfPlaceInput");
 const linkOfPictureToAdd = document.querySelector("#placeInput");
-const popups = document.querySelectorAll(".popup");
+const submitButtonAddNewPlace = document.querySelector(".popup__button_add");
 
 // Функция создания карточки
 const createCard = (card) => {
@@ -76,7 +76,7 @@ function addNewCard(evt) {
   };
   renderCard(card);
   closePopup(popupNewPlace);
-  submitToSaveNewCard.reset();
+  formElementNewCard.reset();
 }
 // попапы
 const closePopupEsc = (evt) => {
@@ -96,16 +96,6 @@ const closePopupOverlay = (evt) => {
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  const currentPopup = document.querySelector(".popup_opened");
-  const currentFormElement = currentPopup.querySelector(".popup__form");
-  const currentSubmitButton = currentPopup.querySelector(".popup__button");
-
-  if (currentFormElement) {
-    currentFormElement.reset();
-    resetError(currentFormElement, configFormSelector);
-    disableButton(currentSubmitButton, configFormSelector);
-  }
-
   document.addEventListener("keydown", closePopupEsc);
   popup.addEventListener("click", closePopupOverlay);
 }
@@ -118,6 +108,8 @@ function closePopup(popup) {
 
 function showPopupProfile(evt) {
   openPopup(popupEditProfile);
+  formElementProfile.reset();
+  resetError(formElementProfile, configFormSelector);
   nameInput.value = name.textContent;
   jobInput.value = job.textContent;
 }
@@ -134,12 +126,17 @@ buttonEditProfile.addEventListener("click", showPopupProfile);
 closeButtonForEditProfilePopup.addEventListener("click", () =>
   closePopup(popupEditProfile)
 );
-submitEditingProfile.addEventListener("submit", handleFormSubmitProfile);
-buttonAddPicture.addEventListener("click", () => openPopup(popupNewPlace));
+formElementProfile.addEventListener("submit", handleFormSubmitProfile);
+buttonAddPicture.addEventListener("click", () => {
+  openPopup(popupNewPlace);
+  formElementNewCard.reset();
+  resetError(formElementNewCard, configFormSelector);
+  disableButton(submitButtonAddNewPlace, configFormSelector);
+});
 closeButtonForAddPopup.addEventListener("click", () =>
   closePopup(popupNewPlace)
 );
-submitToSaveNewCard.addEventListener("submit", addNewCard);
+formElementNewCard.addEventListener("submit", addNewCard);
 closeButtonForPicture.addEventListener("click", () =>
   closePopup(popupBigImage)
 );
