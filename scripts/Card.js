@@ -1,13 +1,17 @@
 export class Card {
-  constructor(data, templateSelector, handleOpenPopupForBigImage) {
+  constructor(data, templateSelector, handleImageClick) {
     this.name = data.name;
     this.link = data.link;
     this._templateSelector = templateSelector;
-    this._handleOpenPopupForBigImage = handleOpenPopupForBigImage;
+    this._handleImageClick = handleImageClick;
   }
 
-  _toggleLikeHandler = (evt) => {
+  _toggleLike = (evt) => {
     evt.currentTarget.classList.toggle("elements__heart_liked");
+  };
+
+  _deleteCard = () => {
+    this.element.remove();
   };
 
   _getTemplate() {
@@ -19,7 +23,7 @@ export class Card {
     return cardElement;
   }
 
-  render() {
+  render = () => {
     this.element = this._getTemplate();
 
     this.element.querySelector(".elements__name").textContent = this.name;
@@ -30,19 +34,17 @@ export class Card {
     ).alt = `Картинка ${this.name}`;
     this._setEventListeners();
     return this.element;
-  }
+  };
 
   _setEventListeners() {
     this.element
       .querySelector(".elements__heart")
-      .addEventListener("click", this._toggleLikeHandler);
+      .addEventListener("click", this._toggleLike);
     this.element
       .querySelector(".elements__delete-button")
-      .addEventListener("click", (evt) => {
-        this.element.remove();
-      });
+      .addEventListener("click", this._deleteCard);
     this.picture.addEventListener("click", () =>
-      this._handleOpenPopupForBigImage(this.element, this.picture)
+      this._handleImageClick(this, this.picture)
     );
   }
 }
