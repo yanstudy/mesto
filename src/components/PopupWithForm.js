@@ -23,12 +23,14 @@ export default class PopupWithForm extends Popup {
     jobInput.value = job;
   };
 
+  _handleSubmit = (evt) => {
+    evt.preventDefault();
+    this.formSubmit(this._getInputValues());
+  };
+
   setEventListeners() {
     super.setEventListeners();
-    this._form.addEventListener("submit", (evt) => {
-      evt.preventDefault();
-      this.formSubmit(this._getInputValues());
-    });
+    this._form.addEventListener("submit", this._handleSubmit);
   }
 
   reset = () => {
@@ -36,6 +38,7 @@ export default class PopupWithForm extends Popup {
   };
 
   close = () => {
+    this._form.removeEventListener("submit", this._handleSubmit);
     super.close();
     this.reset();
   };
