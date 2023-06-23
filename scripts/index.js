@@ -2,88 +2,60 @@ import { Card } from "./Card.js";
 import { FormValidator } from "./validation.js";
 import { configFormSelector } from "./configFormSelector.js";
 import { initialCards } from "./cards.js";
+import Section from "./Section.js";
+import PopupWithForm from "./PopupWithForm.js";
+import UserInfo from "./UserInfo.js";
+import PopupWithImage from "./PopupWithImage.js";
 
 const popupEditProfile = document.querySelector("#editPopup");
 const buttonEditProfile = document.querySelector(".profile__edit-button");
 const name = document.querySelector(".profile__name");
 const job = document.querySelector(".profile__job");
-const formElementProfile = document.querySelector("#formEditProfile");
-const nameInput = document.querySelector("#nameInput");
-const nameOfPlaceInput = document.querySelector("#nameOfPlaceInput");
-const jobInput = document.querySelector("#jobInput");
-const placeInput = document.querySelector("#placeInput");
 const cardsContainer = document.querySelector(".elements");
 const popupNewPlace = document.querySelector("#newPlacePopup");
 const buttonAddPicture = document.querySelector(".profile__add-button");
 const formElementNewCard = document.querySelector("#formNewPlace");
 const popupBigImage = document.querySelector("#imagePopup");
-const cardTemplate = document.querySelector("#elements__element-template");
-const bigImage = popupBigImage.querySelector(".popup__image");
-const popupTitle = popupBigImage.querySelector(".popup__title");
-const nameOfPictureToAdd = document.querySelector("#nameOfPlaceInput");
-const linkOfPictureToAdd = document.querySelector("#placeInput");
-const submitButtonAddNewPlace = document.querySelector(".popup__button_add");
-const closeButtons = document.querySelectorAll(".popup__close-icon");
 
-// Валидация форм
-const formValidators = {};
-
-// Включение валидации
-const enableValidation = (config) => {
-  const formList = Array.from(document.querySelectorAll(config.formSelector));
-  formList.forEach((formElement) => {
-    const validator = new FormValidator(config, formElement);
-    // получаем данные из атрибута `name` у формы
-    const formName = formElement.getAttribute("name");
-
-    // в объект записываем под именем формы
-    formValidators[formName] = validator;
-    validator.enableValidation();
-  });
-};
-
-enableValidation(configFormSelector);
+// Данные пользователя
+const userInfo = new UserInfo({ name, job });
 
 // попапы
-const closePopupEsc = (evt) => {
-  if (evt.key === "Escape") {
-    evt.preventDefault();
-    const activePopup = document.querySelector(".popup_opened");
-    closePopup(activePopup);
-  }
-};
-
-const closePopupOverlay = (evt) => {
-  if (evt.currentTarget === evt.target) {
-    closePopup(evt.target);
-  }
-};
-
-function openPopup(popup) {
-  popup.classList.add("popup_opened");
-  document.addEventListener("keydown", closePopupEsc);
-  popup.addEventListener("click", closePopupOverlay);
-}
-
-function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closePopupEsc);
-  popup.removeEventListener("mousedown", closePopupOverlay);
-}
-
+// попап профиля
+const popupProfile = new PopupWithForm(
+  popupEditProfile,
+  handleFormSubmitProfile
+);
 function showPopupProfile(evt) {
-  openPopup(popupEditProfile);
-  formElementProfile.reset();
+  popupProfile.open();
+  popupProfile.reset();
   formValidators.formEditProfile.resetError();
-  nameInput.value = name.textContent;
-  jobInput.value = job.textContent;
+  const info = userInfo.getUserInfo();
+  popupProfile.setInputValues(info);
 }
+function handleFormSubmitProfile(data) {
+  userInfo.setUserInfo(data);
+  popupProfile.close();
+}
+
+// попап для добавления картинки
+const popupImage = new PopupWithForm(popupNewPlace, addNewCard);
+// добавление новой карточки по кнопке
+function addNewCard({ name, link }) {
+  const card = {
+    name,
+    link,
+  };
+  cards.addItem(createCard(card));
+  popupImage.close();
+  formElementNewCard.reset();
+}
+
+// попап с большой картинкой
+const popupWithPicture = new PopupWithImage(popupBigImage);
 
 const handleOpenPopupForBigImage = (card, picture) => {
-  openPopup(popupBigImage);
-  bigImage.src = picture.src;
-  bigImage.alt = `Картинка ${card.name}`;
-  popupTitle.textContent = card.name;
+  popupWithPicture.open(card, picture);
 };
 
 // создание новой карточки
@@ -96,53 +68,39 @@ function createCard(item) {
   const card = currentCard.render();
   return card;
 }
-// список заготовленных карточек
-const cardList = initialCards.map((item) => {
-  return createCard(item);
-});
+// создание заготовленныхъ карточек
+const cards = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      cards.addItem(createCard(item));
+    },
+  },
+  cardsContainer
+);
 
-// добавить карточку
-const renderCard = (card) => {
-  const renderedCard = createCard(card);
-
-  cardsContainer.prepend(renderedCard);
-};
-
-cardsContainer.prepend(...cardList);
-
-// добавление новой карточки по кнопке
-function addNewCard(evt) {
-  evt.preventDefault();
-  const card = {
-    name: nameOfPictureToAdd.value,
-    link: linkOfPictureToAdd.value,
-  };
-  renderCard(card);
-  closePopup(popupNewPlace);
-  formElementNewCard.reset();
-}
-
-function handleFormSubmitProfile(evt) {
-  evt.preventDefault();
-  name.textContent = nameInput.value;
-  job.textContent = jobInput.value;
-  closePopup(popupEditProfile);
-}
+cards.renderItems();
 
 // обработчики событий
 buttonEditProfile.addEventListener("click", showPopupProfile);
-
-formElementProfile.addEventListener("submit", handleFormSubmitProfile);
-
 buttonAddPicture.addEventListener("click", () => {
-  openPopup(popupNewPlace);
+  popupImage.open();
   formElementNewCard.reset();
   formValidators.formNewPlace.resetError();
 });
 
-formElementNewCard.addEventListener("submit", addNewCard);
+// Валидация форм
+const formValidators = {};
 
-closeButtons.forEach((button) => {
-  const popup = button.closest(".popup");
-  button.addEventListener("click", () => closePopup(popup));
-});
+// Включение валидации
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    const formName = formElement.getAttribute("name");
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(configFormSelector);
