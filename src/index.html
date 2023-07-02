@@ -139,6 +139,59 @@
             <p class="popup__title"></p>
           </div>
         </section>
+
+        <section class="popup" id="deletePopup">
+          <div class="popup__container">
+            <button
+              class="popup__close-icon popup__close-icon_edit"
+              type="button"
+              aria-label="Кнопка закрытия попапа"
+            ></button>
+            <form
+              class="popup__form"
+              name="formEditProfile"
+              id="formEditProfile"
+              novalidate
+            >
+              <h3 class="popup__edit">Вы уверены?</h3>
+
+              <button type="button" class="popup__button">Да</button>
+            </form>
+          </div>
+        </section>
+
+        <section class="popup" id="editAvatar">
+          <div class="popup__container popup__container_add">
+            <button
+              class="popup__close-icon popup__close-icon_add"
+              type="button"
+              aria-label="Кнопка закрытия попапа"
+            ></button>
+            <form
+              class="popup__form"
+              name="formEditAvatar"
+              id="formEditAvatar"
+              novalidate
+            >
+              <h3 class="popup__edit">Обновить аватар</h3>
+              <div class="popup__input-wrapper">
+                <input
+                  type="url"
+                  class="popup__input"
+                  id="linkOfAvatarInput"
+                  name="link"
+                  placeholder="Введите ссылку на новый аватар"
+                  required
+                />
+                <span class="popup__input-error linkOfAvatarInput-error"></span>
+              </div>
+
+              <button type="submit" class="popup__button popup__button_add">
+                Сохранить
+              </button>
+            </form>
+          </div>
+        </section>
       </main>
 
       <footer class="footer">
@@ -151,11 +204,14 @@
         <img class="elements__picture" />
         <div class="elements__info">
           <h2 class="elements__name"></h2>
-          <button
-            class="elements__heart"
-            type="button"
-            aria-label="Лайк"
-          ></button>
+          <div class="elements__likes-container">
+            <button
+              class="elements__heart"
+              type="button"
+              aria-label="Лайк"
+            ></button>
+            <p class="elements__likes">0</p>
+          </div>
         </div>
       </div>
     </template>
