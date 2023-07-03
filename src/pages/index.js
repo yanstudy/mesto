@@ -213,7 +213,7 @@ function handleEditAvatar(link) {
   api
     .editAvatar(link)
     .then((result) => {
-      avatar.style.backgroundImage = `url(${result.avatar})`;
+      userInfo.setUserInfo(result);
       popupForEditAvatar.close();
     })
     .catch((err) => {
