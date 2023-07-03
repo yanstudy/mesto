@@ -46,10 +46,18 @@ module.exports = {
       },
       {
         // регулярное выражение, которое ищет все файлы с такими расширениями
-        test: /\.(png|svg|jpg|gif|woff(2)?|eot|ttf|otf)$/,
+        test: /\.(png|svg|jpg|gif)$/,
         type: "asset/resource",
         generator: {
           filename: "images/[hash][ext][query]",
+        },
+      },
+      {
+        // регулярное выражение, которое ищет все файлы с такими расширениями
+        test: /\.(woff(2)?|eot|ttf|otf)$/,
+        type: "asset/resource",
+        generator: {
+          filename: "fonts/[hash][ext][query]",
         },
       },
     ],
