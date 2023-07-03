@@ -20,18 +20,21 @@ export class Card {
     this._removeLike = removeLike;
   }
 
-  _toggleLike = (evt) => {
+  toggleLike = (evt) => {
     const myLike = evt.currentTarget.classList.contains(
       "elements__heart_liked"
     );
     if (!myLike) {
-      evt.currentTarget.classList.add("elements__heart_liked");
       this._addLike();
     } else {
-      evt.currentTarget.classList.remove("elements__heart_liked");
       this._removeLike();
     }
   };
+
+  updateAmountOfLikes(likes) {
+    this.amountOfLikes.textContent = likes.length;
+    this._heart.classList.toggle("elements__heart_liked");
+  }
 
   deleteCard = () => {
     this.element.remove();
@@ -79,7 +82,7 @@ export class Card {
   _setEventListeners() {
     this.element
       .querySelector(".elements__heart")
-      .addEventListener("click", this._toggleLike);
+      .addEventListener("click", this.toggleLike);
     this.element
       .querySelector(".elements__delete-button")
       .addEventListener("click", this._confirmDeleteCard);

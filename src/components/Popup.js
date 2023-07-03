@@ -23,21 +23,16 @@ export default class Popup {
     this._popup
       .querySelector(".popup__close-icon")
       .addEventListener("click", this.close);
-    document.addEventListener("keydown", this._handleEscClose);
     this._popup.addEventListener("mousedown", this._closePopupOverlay);
   }
 
   open() {
-    this.setEventListeners();
+    document.addEventListener("keydown", this._handleEscClose);
     this._popup.classList.add("popup_opened");
   }
 
   close() {
-    this._popup.classList.remove("popup_opened");
-    this._popup
-      .querySelector(".popup__close-icon")
-      .removeEventListener("click", this.close);
     document.removeEventListener("keydown", this._handleEscClose);
-    this._popup.removeEventListener("mousedown", this._closePopupOverlay);
+    this._popup.classList.remove("popup_opened");
   }
 }

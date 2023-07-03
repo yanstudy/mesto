@@ -18,10 +18,12 @@ export default class PopupWithForm extends Popup {
     return inputs;
   };
 
-  setInputValues = ({ name, job }) => {
-    const [nameInput, jobInput] = this._inputValues;
-    nameInput.value = name;
-    jobInput.value = job;
+  setInputValues = (info) => {
+    Object.keys(info).forEach((key, index) => {
+      if (index < this._inputValues.length) {
+        this._inputValues[index].value = info[key];
+      }
+    });
   };
 
   _handleSubmit = (evt) => {
@@ -39,7 +41,6 @@ export default class PopupWithForm extends Popup {
   };
 
   close = () => {
-    this._form.removeEventListener("submit", this._handleSubmit);
     super.close();
     this.reset();
   };
