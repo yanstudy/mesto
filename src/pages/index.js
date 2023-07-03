@@ -1,3 +1,4 @@
+import "../pages/index.css";
 import { Card } from "../components/Card.js";
 import { FormValidator } from "../utils/validation.js";
 import { configFormSelector } from "../utils/configFormSelector.js";
@@ -5,23 +6,24 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
-import "../pages/index.css";
 import Api from "../components/Api.js";
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 
+// попап-элементы
 const popupEditProfile = document.querySelector("#editPopup");
-const buttonEditProfile = document.querySelector(".profile__edit-button");
 const popupNewPlace = document.querySelector("#newPlacePopup");
 const popupDeleteCard = document.querySelector("#deletePopup");
 const popupEditAvatar = document.querySelector("#editAvatar");
+const popupBigImage = document.querySelector("#imagePopup");
+// формы
+const formElementNewCard = document.querySelector("#formNewPlace");
+const formElementEditAvatar = document.querySelector("#formEditAvatar");
 
+const buttonEditProfile = document.querySelector(".profile__edit-button");
 const name = document.querySelector(".profile__name");
 const job = document.querySelector(".profile__job");
 const cardsContainer = document.querySelector(".elements");
 const buttonAddPicture = document.querySelector(".profile__add-button");
-const formElementNewCard = document.querySelector("#formNewPlace");
-const formElementEditAvatar = document.querySelector("#formEditAvatar");
-const popupBigImage = document.querySelector("#imagePopup");
 const avatar = document.querySelector(".profile__avatar");
 let cards;
 let infoData;
@@ -42,7 +44,7 @@ const getUserInfo = () => {
 const getInitialCards = () => {
   return api.getInitialCards();
 };
-
+// Получение всех необходимых данных сразу
 Promise.all([getUserInfo(), getInitialCards()])
   .then(([userInfoResult, initialCardsResult]) => {
     infoData = userInfoResult;
@@ -62,8 +64,9 @@ Promise.all([getUserInfo(), getInitialCards()])
     cards.renderItems();
   })
   .catch((err) => {
-    console.log(err); // Handle errors
+    console.log(err);
   });
+
 // Данные пользователя
 const userInfo = new UserInfo({ name, job, avatar });
 
@@ -81,22 +84,26 @@ function showPopupProfile(evt) {
   popupProfile.setInputValues(info);
 }
 function handleFormSubmitProfile(data) {
+  toggleLoading(popupEditProfile, true);
   api
     .editProfile(data)
     .then((result) => {
-      console.log(result);
+      userInfo.setUserInfo(result);
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
+    })
+    .finally(() => {
+      popupProfile.close();
+      toggleLoading(popupEditProfile, false);
     });
-  userInfo.setUserInfo(data);
-  popupProfile.close();
 }
 
 // попап для добавления картинки
 const popupImage = new PopupWithForm(popupNewPlace, addNewCard);
 // добавление новой карточки по кнопке
 function addNewCard({ name, link }) {
+  toggleLoading(popupNewPlace, true);
   api
     .addNewCard({ name, link })
     .then((card) => {
@@ -104,9 +111,12 @@ function addNewCard({ name, link }) {
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
+    })
+    .finally(() => {
+      popupImage.close();
+      toggleLoading(popupNewPlace, false);
     });
 
-  popupImage.close();
   formElementNewCard.reset();
 }
 
@@ -178,17 +188,35 @@ function createCard(item) {
   const card = currentCard.render();
   return card;
 }
+
+// UX
+function toggleLoading(popup, isLoading) {
+  const currentButton = popup.querySelector(".popup__button");
+  const currentText = currentButton.textContent.trim();
+  if (isLoading) {
+    currentButton.textContent = currentText + "...";
+    currentButton.disabled = true;
+  } else {
+    currentButton.textContent = currentText.slice(0, currentText.length - 3);
+    currentButton.disabled = false;
+  }
+}
+
 // Изменение аватара
 const popupForEditAvatar = new PopupWithForm(popupEditAvatar, handleEditAvatar);
 function handleEditAvatar(link) {
+  toggleLoading(popupEditAvatar, true);
   api
     .editAvatar(link)
     .then((result) => {
-      popupForEditAvatar.close();
       avatar.style.backgroundImage = `url(${result.avatar})`;
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
+    })
+    .finally(() => {
+      popupForEditAvatar.close();
+      toggleLoading(popupEditAvatar, false);
     });
 }
 

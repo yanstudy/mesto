@@ -9,6 +9,7 @@
   aspect-ratio: 1 / 1;
   margin-right: 30px;
   position: relative;
+  cursor: pointer;
 }
 
 .profile__avatar::before {
