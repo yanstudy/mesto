@@ -172,14 +172,15 @@ function createCard(item) {
   if (item.owner._id === infoData._id) {
     popupWithConfirmation.setEventListeners();
   }
-
+  let currentId;
   function handleDeleteCard() {
     popupWithConfirmation.open();
+    currentId = item._id;
   }
 
   function confirmDelete() {
     api
-      .deleteCard(item._id)
+      .deleteCard(currentId)
       .then((result) => {
         popupWithConfirmation.close();
         currentCard.deleteCard();
