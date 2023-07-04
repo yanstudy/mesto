@@ -179,15 +179,17 @@ function createCard(item) {
   }
 
   function confirmDelete() {
-    api
-      .deleteCard(currentId)
-      .then((result) => {
-        popupWithConfirmation.close();
-        currentCard.deleteCard();
-      })
-      .catch((err) => {
-        console.log(err); // выведем ошибку в консоль
-      });
+    if (currentCard) {
+      api
+        .deleteCard(currentId)
+        .then((result) => {
+          popupWithConfirmation.close();
+          currentCard.deleteCard();
+        })
+        .catch((err) => {
+          console.log(err); // выведем ошибку в консоль
+        });
+    }
   }
   const card = currentCard.render();
   return card;
